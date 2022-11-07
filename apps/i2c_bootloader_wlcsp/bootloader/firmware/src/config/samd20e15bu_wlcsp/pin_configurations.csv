@@ -1,0 +1,23 @@
+"Pin Number","Pin ID","Custom Name","Function","Mode", "Direction","Latch","Pull Up","Pull Down","Drive Strength"
+A1,PA00,,Available,,,,,,NORMAL
+A3,PA02,,Available,,,,,,NORMAL
+A5,PA04,,Available,,,,,,NORMAL
+A7,PA05,,Available,,,,,,NORMAL
+A9,PA06,,Available,,,,,,NORMAL
+B2,PA01,,Available,,,,,,NORMAL
+B4,PA03,,Available,,,,,,NORMAL
+B6,PA07,,Available,,,,,,NORMAL
+C3,PA30,,Available,,,,,,NORMAL
+C7,PA08,,SERCOM2_PAD0,Digital,In,n/a,Yes,No,NORMAL
+C9,PA09,,SERCOM2_PAD1,Digital,In,n/a,Yes,No,NORMAL
+D4,PA31,,Available,,,,,,NORMAL
+D6,PA11,,Available,,,,,,NORMAL
+D8,PA10,,Available,,,,,,NORMAL
+E1,PA28,,Available,,,,,,NORMAL
+E3,PA22,,Available,,,,,,NORMAL
+E5,PA17,,Available,,,,,,NORMAL
+E7,PA15,,Available,,,,,,NORMAL
+E9,PA14,,Available,,,,,,NORMAL
+F4,PA19,,Available,,,,,,NORMAL
+F6,PA18,,Available,,,,,,NORMAL
+F8,PA16,,Available,,,,,,NORMAL
