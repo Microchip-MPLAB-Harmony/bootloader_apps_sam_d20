@@ -1,67 +1,44 @@
 ---
-parent: Host Application Configurations
-title: Configuring SDCARD Host applications
-has_children: false
+grand_parent: I2C Bootloader Applications
+parent: I2C Bootloader
+title: Building and Running on SAM E54 Xplained Pro Evaluation Kit
 has_toc: false
 ---
 
 [![MCHP](https://www.microchip.com/ResourcePackages/Microchip/assets/dist/images/logo.png)](https://www.microchip.com)
 
-# Configuring the SDCARD Host applications
+### **Using I2C SDCARD Host application to send the application binary to Target development kit**
 
-## Downloading the application
+![host_app_sdcard_setup](../docs/images/i2c_bootloader_host_sdcard.png)
 
-To clone or download this application from Github,go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/bootloader_apps_i2c) and then click Clone button to clone this repo or download as zip file. This content can also be download using content manager by following [these instructions](https://github.com/Microchip-MPLAB-Harmony/contentmanager/wiki)
+1. Open the SDCARD host application project *bootloader_apps_sam_d20\apps\i2c_bootloader_wlcsp\host_app_sdcard\firmware\sam_e54_xpro.X* in the IDE
 
-Path of the SDCARD host applications within the repository is **apps/i2c_bootloader/**
+2. Build and program the SDCARD host application using the IDE on to the I2C host dvelopment kit
 
-## Configuring the SDCARD Host application
+3. Build and generate the application binary to be bootloaded. 
 
-### Follow below steps only when Host development kit is different than Target Development Kit
+4. Copy the application binary generated in step 3, into the SD card and rename the binary to *image.bin* as shown in below.
 
-1. Open the host_app_sdcard/firmware/*.X project in MPLABX IDE
+![host_app_sdcard_setup](../docs/images/i2c_bootloader_host_app_sdcard_user_config.png)
 
-2. Open the "user.h" file as shown below:
+5. Insert the SD card in the SD card slot available on the [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsame54-xpro) 
 
-    ![i2c_bootloader_host_app_sdcard_user_ide](./images/i2c_bootloader_host_app_sdcard_user_ide.png)
+6. Open the Terminal application (Ex.:Tera Term) on the computer
 
-3. In the "user.h" file specify the Bootloader Target Device used using the predefined macros
-       #define APP_I2C_BOOTLOADER_TARGET_DEVICE     SAM_D21_XPRO
+7. Configure the serial port settings for **Host Development kit** as follows:
+    - Baud : 115200
+    - Data : 8 Bits
+    - Parity : None
+    - Stop : 1 Bit
+    - Flow Control : None
 
-    ![i2c_bootloader_host_app_nvm_user_config](./images/i2c_bootloader_host_app_sdcard_user_config.png)
+7. Press the Switch **SW0** on the Host development kit to trigger programming of the application binary
 
-4. Navigate to the **#if block** for the specified **Bootloader Target Device** and verify the below settings are as expected.
+8. Once the programming is complete,
+    - **LED0** on the Host development kit will be turned on indicating success
 
-    - **APP_BINARY_FILE:** Name of the Application binary copied to the SDCARD
-    - **APP_I2C_SLAVE_ADDR:** I2C slave address
-    - **APP_ERASE_PAGE_SIZE:** Erase page size of the target (target = MCU being programmed)
-    - **APP_PROGRAM_PAGE_SIZE:** Program page size of the target (target = MCU being programmed).
-        - The macro can either be set to the program page size or can be set to the size of the erase page size of the target.
-        - In the demo example, the macro is set equal to the size of the erase page.
-        - On embedded host where RAM is limited, the macro may be set to the actual program page size to reduce the RAM used to hold the program data.
-            - For example, for SAM D20, the macro can be set either to 64 (program page size) or 256 (erase page size)
-    - **APP_IMAGE_START_ADDR:** User application start address (This value should be same as the application start address specified in Application Configurations steps).
-        - If the bootloader itself is being upgraded then the APP_IMAGE_START_ADDR must be set to 0x00 (start of bootloader)
-        - Ensure that the bootloader and application are also configured with the same value of user application start address
+    - Following message will be displayed on the terminal of **Host development kit**
 
-### Follow below steps only when multiple Target development kit are to be programmed using the same Host development kit
+        ![i2c_bootloader_host_app_sdcard_output](images/i2c_bootloader_host_app_sdcard_output.png)
 
-1. Open the host application source file
-
-2. The **APP_BL_NUM_I2C_SLAVES** must be set equal to the number of slaves being programmed on the I2C bus
-
-3. Specify the following details in the **firmwareUpdateInfo data structure** for other slaves on the bus:
-
-    ![i2c_bootloader_host_app_sdcard_config](./images/i2c_bootloader_host_app_sdcard_app_config.png)
-
-    - **i2cSlaveAddr:** Specify the I2C slave address
-    - **erasePageSize:** Specify the erase page size of the target (target = MCU being programmed)
-    - **programPageSize:** Specify the program page size of the target (target = MCU being programmed).
-        - It can either be set to the program page size or can be set to the size of the erase page size of the target.
-        - In the demo example, it is set equal to the size of the erase page.
-        - On embedded host where RAM is limited, it may be set to the actual program page size to reduce the RAM used to hold the program data.
-            - For example, for SAM D20, the programPageSize can be set either to 64 (program page size) or 256 (erase page size).
-    - **appStartAddr:** Specify the user application start address (This value should be same as the application start address specified in Application configuration).
-        - If the bootloader itself is being upgraded then the appStartAddr must be set to 0x00 (start of the bootloader).
-        - Also, ensure that the bootloader is also configured with the same value of application start address.
-    - **filename:** Specify the filename of the application binary
+    - The target will be reset. Upon re-start, the boot-loader will jump to the user application    
