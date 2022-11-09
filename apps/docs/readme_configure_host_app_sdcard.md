@@ -1,5 +1,5 @@
 ---
-grand_parent: I2C Bootloader Applications
+grand_parent: I2C Factory Programmed Bootloader Applications
 parent: I2C Bootloader
 title: Building and Running on SAM E54 Xplained Pro Evaluation Kit
 has_toc: false

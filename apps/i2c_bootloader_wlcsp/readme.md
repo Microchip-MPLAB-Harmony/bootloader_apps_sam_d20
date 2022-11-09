@@ -1,5 +1,5 @@
 ---
-parent: I2C Bootloader Applications
+parent: I2C Factory Programmed Bootloader Applications
 title: I2C WLCSP Bootloader
 has_children: false
 has_toc: false
